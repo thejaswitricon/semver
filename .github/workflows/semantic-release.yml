@@ -26,15 +26,25 @@ jobs:
           token: ${{ secrets.PAT_GITHUB2 }}
 
       # Step 1: Get the name of the folder that had the changes
+      # Step 1: Get the folder paths of changed files in the pull request
       - name: Get changed directories
         id: changed_dirs
         run: |
-          CHANGED_DIRS=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | awk -F/ 'BEGIN{OFS=FS} NF--')
+          # Fetch the pull request number from the GitHub context
+          PR_NUMBER=${{ github.event.number }}
+          
+          # Get the files changed in the pull request using GitHub API
+          CHANGED_FILES=$(curl -s -H "Authorization: Bearer ${{ secrets.PAT_GITHUB2 }}" "https://api.github.com/repos/semver/pulls/${PR_NUMBER}/files" | jq -r '.[].filename')
+
+          # Extract the folder paths from the file names
+          CHANGED_DIRS=$(echo "$CHANGED_FILES" | xargs -I {} dirname {} | sort | uniq)
+          
           if [[ -z $CHANGED_DIRS ]]; then
             echo "::set-output name=dirs::"
           else
             echo "::set-output name=dirs::$CHANGED_DIRS"
           fi
+
 
       # Step 2: Check if the changed folder should be considered
       - name: Check folder with semver.yml

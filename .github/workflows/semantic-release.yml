@@ -28,13 +28,13 @@ jobs:
       - name: Get changed directories
         id: changed_dirs
         run: |
-          CHANGED_DIRS=$(git diff-tree --no-commit-id --name-only -r ${{ github.event.pull_request.head.sha }} | awk -F/ 'BEGIN{OFS=FS} NF--')
+          CHANGED_DIRS=$(git diff --name-only ${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }} | awk -F/ 'BEGIN{OFS=FS} NF--')
           if [[ -z $CHANGED_DIRS ]]; then
             echo "::set-output name=dirs::"
           else
             echo "::set-output name=dirs::$CHANGED_DIRS"
           fi
-        
+                
       # Step 2: Check if the changed folder should be considered
       - name: Check folder with semver.yml
         id: check_folder

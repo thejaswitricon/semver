@@ -162,7 +162,7 @@ jobs:
       - name: Fetch GitHub Releases
         id: fetch_releases
         run: |
-          releases=$(curl -s "https://api.github.com/repos/thejaswitricon/semantic-release-monorepo/releases" | jq -r '.[] | "\n" + (.body // "") + "\n"')
+          releases=$(curl -s "https://api.github.com/repos/thejaswitricon/semver/releases" | jq -r '.[] | "\n" + (.body // "") + "\n"')
           echo "$releases" > CHANGELOG.md
           cat CHANGELOG.md
 

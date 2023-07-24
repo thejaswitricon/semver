@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# [1.1.0](https://github.com/thejaswitricon/semver/compare/aws/ecs/ecs-simple-v1.0.0...aws/ecs/ecs-simple-v1.1.0) (2023-07-24)
+
+
+### Features
+
+* **ecs-simple:** Initial commit ([bcd76d4](https://github.com/thejaswitricon/semver/commit/bcd76d441e9b25a9a069e10c78e965082c1d98dc))
+
 # 1.0.0 (2023-07-24)
 
 

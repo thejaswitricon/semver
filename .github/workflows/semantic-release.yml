@@ -26,15 +26,17 @@ jobs:
           token: ${{ secrets.PAT_GITHUB2 }}
 
       # Step 1: Get the name of the folder that had the changes
+      # Step 1: Get the name of the folder that had the changes
       - name: Get changed directories
         id: changed_dirs
         run: |
-          CHANGED_DIRS=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | awk -F/ 'BEGIN{OFS=FS} NF--')
+          CHANGED_DIRS=$(git diff --name-only ${{ github.event.before }}...${{ github.sha }} | grep "/" | cut -d/ -f1 | sort | uniq)
           if [[ -z $CHANGED_DIRS ]]; then
             echo "::set-output name=dirs::"
           else
             echo "::set-output name=dirs::$CHANGED_DIRS"
           fi
+
 
       - name: Check folder with semver.yml
         id: check_folder
@@ -69,4 +71,3 @@ jobs:
             fi
           fi
 
-          

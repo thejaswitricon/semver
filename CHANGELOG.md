@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [1.1.1](https://github.com/thejaswitricon/semver/compare/v1.1.0...v1.1.1) (2023-07-24)
+
+
+### Bug Fixes
+
+* **ecs-simple:** url update for api call ([47653e7](https://github.com/thejaswitricon/semver/commit/47653e751c597cd2cb836cab5879bf2da4f081c7))
+
 # [1.1.0](https://github.com/thejaswitricon/semver/compare/v1.0.0...v1.1.0) (2023-07-24)
 
 

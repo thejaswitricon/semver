@@ -1,17 +1,12 @@
-name: Semantic Release for Apps
+name: Get changed directories
 
 on:
   push:
     branches:
       - master
-    # paths:
-    #   - 'modules/**'
-  workflow_run:
-    workflows: ["My Workflow"]
+  pull_request:
     types:
-      - completed  
-  
-permissions: write-all
+      - closed
 
 jobs:
   release:
@@ -23,9 +18,7 @@ jobs:
         id: checkout
         with:
           fetch-depth: 0
-          token: ${{ secrets.PAT_GITHUB2 }}
 
-      # Step 1: Get the name of the folder that had the changes
       - name: Get changed directories
         id: changed_dirs
         run: |
@@ -36,147 +29,6 @@ jobs:
             echo "::set-output name=dirs::$CHANGED_DIRS"
           fi
 
-      # Step 2: Check if the changed folder should be considered
-      - name: Check folder with semver.yml
-        id: check_folder
+      - name: Print changed directories
         run: |
-          CHANGED_DIRS="${{ steps.changed_dirs.outputs.dirs }}"
-          echo "CHANGED_DIRS: $CHANGED_DIRS"  # Debugging line
-          if [[ -z $CHANGED_DIRS ]]; then
-            echo "::set-output name=consider_folder::"
-          else
-            SEMVER_PATTERNS=$(cat .github/semver.yml)
-            echo "SEMVER_PATTERNS: $SEMVER_PATTERNS"
-            PATTERNS=()
-            while IFS= read -r LINE; do
-              if [[ $LINE == -* ]]; then
-                FOLDER=$(echo "$LINE" | sed 's/^- //')
-                PATTERNS+=("$FOLDER")
-              fi
-            done <<< "$SEMVER_PATTERNS"
-            echo "PATTERNS: ${PATTERNS[*]}"
-            MATCHED_FOLDER=""
-            for PATTERN in "${PATTERNS[@]}"; do
-              if [[ $CHANGED_DIRS == $PATTERN ]]; then
-                MATCHED_FOLDER=$CHANGED_DIRS
-                break
-              fi
-            done
-            if [[ -n $MATCHED_FOLDER ]]; then
-              echo "::set-output name=consider_folder::$CHANGED_DIRS"
-            else
-              echo "No matching folder found in semver.yml. Skipping release."
-              return 0
-            fi
-          fi
-
-      #Update the tag format
-      - name: Update tag format
-        id: update_tag_format
-        run: |
-          APP_DIRS="${{ steps.changed_dirs.outputs.dirs }}"
-          if [[ -z $APP_DIRS ]]; then
-            echo "::set-output name=tag_format::v\${version}"
-          else
-            APP_NAME=$(basename "$APP_DIRS")
-            APP_NAME=$(echo "$APP_NAME" | awk '{print tolower($0)}')
-            # Split the directory path into an array using '/' as the delimiter
-            IFS="/" read -ra FOLDERS <<< "$APP_DIRS"
-            # Build the prefix by joining the second, third, and last elements of the array
-            PREFIX="${FOLDERS[1]}/${FOLDERS[2]}/${FOLDERS[-1]}"
-            echo "::set-output name=tag_format::${PREFIX}-v\${version}"
-          fi
-
-      # Step 5: Determine the path to the CHANGELOG.md file
-      - name: Determine CHANGELOG.md path
-        id: changelog_path
-        run: |
-          APP_DIRS="${{ steps.changed_dirs.outputs.dirs }}"
-          if [[ -z $APP_DIRS ]]; then
-            echo "::set-output name=path::./CHANGELOG.md"
-          else
-            CHANGELOG_PATH="${APP_DIRS}/CHANGELOG.md"
-            if [[ ! -f "$CHANGELOG_PATH" ]]; then
-              touch "$CHANGELOG_PATH"
-            fi
-            echo "::set-output name=path::$CHANGELOG_PATH"
-          fi
-
-      # Step 7: Run semantic release
-      - name: Semantic Release
-        uses: docker://ghcr.io/codfish/semantic-release-action:v2
-        id: semantic
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_GITHUB2 }}
-        with:
-          tag_format: '${{ steps.update_tag_format.outputs.tag_format }}'
-          additional_packages: |
-            ['@semantic-release/changelog', '@semantic-release/git']
-          plugins: |
-            [
-              '@semantic-release/commit-analyzer',
-              '@semantic-release/release-notes-generator',
-              ['@semantic-release/changelog', { changelogTitle: '# CHANGELOG', "changelogFile": "${{ steps.changelog_path.outputs.path }}"}],
-              '@semantic-release/github',
-              ['@semantic-release/git', { "assets": ["${{ steps.changelog_path.outputs.path }}"] }]
-            ]
-          branches: |
-            [
-              'master'
-            ]
-        if: steps.changelog_path.outputs.path != ''
-
-      #Semantic release output summary
-      - name: Semantic Release Output Summary
-        id: semantic_summary
-        run: |
-          echo "### Semantic Version = ${{ steps.semantic.outputs.release-version }}\`" >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          echo "${{ toJson(steps.semantic.outputs) }}" >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-        continue-on-error: true
-
-  fetch-and-commit:
-    name: Fetch and Commit Changes
-    runs-on: ubuntu-latest
-    needs: release
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.PAT_GITHUB2 }}
-
-      # - name: Fetch Latest Release
-      #   id: fetch_latest_release
-      #   run: |
-      #     latest_release=$(curl -s "https://api.github.com/repos/thejaswitricon/semantic-release-monorepo/releases/latest")
-      #     release_body=$(echo "$latest_release" | jq -r '.body // ""')
-      
-      #     echo "$release_body" >> CHANGELOG.md
-      #     echo "" >> CHANGELOG.md
-      
-      #     cat CHANGELOG.md
-        
-      # Rest of the workflow steps...
-      - name: Fetch GitHub Releases
-        id: fetch_releases
-        run: |
-          releases=$(curl -s "https://api.github.com/repos/thejaswitricon/semver/releases" | jq -r '.[] | "\n" + (.body // "") + "\n"')
-          echo "$releases" > CHANGELOG.md
-          cat CHANGELOG.md
-
-      - name: Commit and Push Changes
-        run: |
-          CHANGED_DIRS=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | awk -F/ 'BEGIN{OFS=FS} NF--')
-          if [[ -z $CHANGED_DIRS ]]; then
-            echo "No changes found in root directory. Skipping workflow."
-            exit 0
-          else
-            git config user.name "GitHub Actions"
-            git config user.email "actions@github.com"
-            git pull
-            git add CHANGELOG.md
-            git commit -m "docs: update change log [skip ci]"
-            git push
-          fi
+          echo "${{ steps.changed_dirs.outputs.dirs }}"

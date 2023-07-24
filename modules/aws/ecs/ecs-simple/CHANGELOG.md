@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## [1.1.6](https://github.com/thejaswitricon/semver/compare/aws/ecs/ecs-simple-v1.1.5...aws/ecs/ecs-simple-v1.1.6) (2023-07-24)
+
+
+### Bug Fixes
+
+* **ecs-simple:** url update for api call ([c7b47c6](https://github.com/thejaswitricon/semver/commit/c7b47c670f8ecd033b58ff31c137f8fca925f8fb))
+* **ecs-simple:** url update for api call ([01fd5de](https://github.com/thejaswitricon/semver/commit/01fd5deeb14e5ceb8484c13949912579f3a69a92))
+
+## [1.1.5](https://github.com/thejaswitricon/semver/compare/aws/ecs/ecs-simple-v1.1.4...aws/ecs/ecs-simple-v1.1.5) (2023-07-24)
+
+
+### Bug Fixes
+
+* **ecs-simple:** url update for api call ([cc0d820](https://github.com/thejaswitricon/semver/commit/cc0d820ac822bb18f2e375fec563d1d1046371dc))
+* **ecs-simple:** url update for api call ([c7203b3](https://github.com/thejaswitricon/semver/commit/c7203b37fc560af8f1dd26d8d9abf408cee2ac6d))
+
+## [1.1.4](https://github.com/thejaswitricon/semver/compare/aws/ecs/ecs-simple-v1.1.3...aws/ecs/ecs-simple-v1.1.4) (2023-07-24)
+
+
+### Bug Fixes
+
+* **ecs-simple:** update ([ef25f8f](https://github.com/thejaswitricon/semver/commit/ef25f8f17580a08cd1c47c1d0dea894f020539ac))
+* **ecs-simple:** url update for api call ([47653e7](https://github.com/thejaswitricon/semver/commit/47653e751c597cd2cb836cab5879bf2da4f081c7))
+
 ## [1.1.3](https://github.com/thejaswitricon/semver/compare/aws/ecs/ecs-simple-v1.1.2...aws/ecs/ecs-simple-v1.1.3) (2023-07-24)
 
 

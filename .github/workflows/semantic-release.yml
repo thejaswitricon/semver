@@ -28,9 +28,7 @@ jobs:
       - name: Get changed directories
         id: changed_dirs
         run: |
-          BASE_BRANCH=$(git rev-parse master)  
-          MERGE_BASE=$(git merge-base $BASE_BRANCH ${{ github.event.pull_request.head.sha }})
-          CHANGED_DIRS=$(git diff --name-only $MERGE_BASE ${{ github.event.pull_request.head.sha }} | awk -F/ 'BEGIN{OFS=FS} NF--')
+          CHANGED_DIRS = git diff --name-status master..semver
           if [[ -z $CHANGED_DIRS ]]; then
             echo "::set-output name=dirs::"
           else

@@ -169,7 +169,7 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
-          CHANGED_DIRS=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | awk -F/ 'BEGIN{OFS=FS} NF--')
+          CHANGED_DIRS=$(git diff --name-only ${{ github.event.before }}...${{ github.sha }} | grep "/" | xargs -I{} dirname {})
           if [[ -z $CHANGED_DIRS ]]; then
             echo "No changes found in root directory. Skipping workflow."
             exit 0

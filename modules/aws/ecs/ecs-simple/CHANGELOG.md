@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## [1.1.3](https://github.com/thejaswitricon/semver/compare/aws/ecs/ecs-simple-v1.1.2...aws/ecs/ecs-simple-v1.1.3) (2023-07-24)
+
+
+### Bug Fixes
+
+* **ecs-cluster:** initial commit ([99d6b72](https://github.com/thejaswitricon/semver/commit/99d6b725cdb7fac4eb6cf598430a46a448302677))
+* **ecs-cluster:** url update for api call ([9658882](https://github.com/thejaswitricon/semver/commit/9658882cb8cdbe4a3d8a5cda41c9e27d21f6dfe8))
+* **ecs-simple:** url update for api call ([2b27e72](https://github.com/thejaswitricon/semver/commit/2b27e72b7bfc6451ec6abe10a2ca74a9f76e4ecb))
+
 ## [1.1.2](https://github.com/thejaswitricon/semver/compare/aws/ecs/ecs-simple-v1.1.1...aws/ecs/ecs-simple-v1.1.2) (2023-07-24)
 
 

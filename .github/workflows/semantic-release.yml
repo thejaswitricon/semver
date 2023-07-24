@@ -30,7 +30,9 @@ jobs:
         id: changed_dirs
         run: |
           # Fetch the list of changed files from the GitHub context for pull requests
-          CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }}...${{ github.sha }})
+          BASE_BRANCH="${{ github.event.pull_request.base.ref }}"
+          HEAD_BRANCH="${{ github.event.pull_request.head.ref }}"
+          CHANGED_FILES=$(git diff --name-only "${BASE_BRANCH}" "${HEAD_BRANCH}")
 
           # Extract the folder paths from the file names
           CHANGED_DIRS=$(echo "$CHANGED_FILES" | xargs -I {} dirname {} | sort | uniq)
@@ -40,8 +42,6 @@ jobs:
           else
             echo "::set-output name=dirs::$CHANGED_DIRS"
           fi
-
-
 
       # Step 2: Check if the changed folder should be considered
       - name: Check folder with semver.yml

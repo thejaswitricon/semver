@@ -28,7 +28,7 @@ jobs:
       - name: Get changed directories
         id: changed_dirs
         run: |
-          CHANGED_DIRS = git diff --name-status master..semver
+          git diff --name-status master..semver
           if [[ -z $CHANGED_DIRS ]]; then
             echo "::set-output name=dirs::"
           else

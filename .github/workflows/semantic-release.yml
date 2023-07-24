@@ -116,14 +116,10 @@ jobs:
           plugins: |
             [
               '@semantic-release/commit-analyzer',
-              '@semantic-release/release-notes-generator',
+              ['@semantic-release/release-notes-generator', { "preset": "angular", "writerOpts": { "commitsSort": ["subject", "scope"] }, "presetConfig": { "types": [{"type": "feat", "section": "Features"}, {"type": "fix", "section": "Bug Fixes"}, {"type": "chore", "hidden": true}] } }],
               ['@semantic-release/changelog', { changelogTitle: '# CHANGELOG', "changelogFile": "${{ steps.changelog_path.outputs.path }}"}],
               '@semantic-release/github',
               ['@semantic-release/git', { "assets": ["${{ steps.changelog_path.outputs.path }}"] }]
-            ]
-          branches: |
-            [
-              'master'
             ]
         if: steps.changelog_path.outputs.path != ''
 

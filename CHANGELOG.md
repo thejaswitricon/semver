@@ -60,6 +60,18 @@
 
 
 
+## [1.0.1](https://github.com/thejaswitricon/semver/compare/aws/ecs/ecs-cluster-v1.0.0...aws/ecs/ecs-cluster-v1.0.1) (2023-07-24)
+
+
+### Bug Fixes
+
+* **ecs-cluster:** url update for api call ([9658882](https://github.com/thejaswitricon/semver/commit/9658882cb8cdbe4a3d8a5cda41c9e27d21f6dfe8))
+
+
+
+
+
+
 # 1.0.0 (2023-07-24)
 
 

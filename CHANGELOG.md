@@ -11,6 +11,18 @@
 
 
 
+## [1.1.2](https://github.com/thejaswitricon/semver/compare/aws/ecs/ecs-simple-v1.1.1...aws/ecs/ecs-simple-v1.1.2) (2023-07-24)
+
+
+### Bug Fixes
+
+* **ecs-simple:** fix the api call issue ([741cb56](https://github.com/thejaswitricon/semver/commit/741cb56e845ffb892f1b102a8e2d02bfc52a57b7))
+
+
+
+
+
+
 ## [1.1.1](https://github.com/thejaswitricon/semver/compare/aws/ecs/ecs-simple-v1.1.0...aws/ecs/ecs-simple-v1.1.1) (2023-07-24)
 
 

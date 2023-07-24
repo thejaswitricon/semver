@@ -1,9 +1,12 @@
-name: Get Changed File
+name: Get changed directories
 
 on:
   push:
     branches:
       - master
+  pull_request:
+    types:
+      - closed
 
 jobs:
   release:
@@ -15,16 +18,19 @@ jobs:
         id: checkout
         with:
           fetch-depth: 0
-          token: ${{ secrets.PAT_GITHUB2 }}
 
-      # Ensure your semantic release steps or any other necessary steps are here
-
-      - name: Get Changed Files
+      - name: Get changed directories
+        id: changed_dirs
         run: |
-          git fetch origin master
-          CHANGED_FILES=$(git diff --name-only origin/master)
-          echo "Changed files in the merge commit:"
-          echo "$CHANGED_FILES" > changed_files.txt
+          CHANGED_DIRS=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | awk -F/ 'BEGIN{OFS=FS} NF--')
+          if [[ -z $CHANGED_DIRS ]]; then
+            echo "::set-output name=dirs::"
+          else
+            echo "::set-output name=dirs::$CHANGED_DIRS"
+          fi
 
-      - name: Display Changed Files
-        run: cat changed_files.txt
+      - name: Print changed directories
+        run: |
+          echo "${{ steps.changed_dirs.outputs.dirs }}"
+
+          

@@ -11,6 +11,18 @@
 
 
 
+## [1.1.1](https://github.com/thejaswitricon/semver/compare/aws/ecs/ecs-simple-v1.1.0...aws/ecs/ecs-simple-v1.1.1) (2023-07-24)
+
+
+### Bug Fixes
+
+* **ecs-simple:** add console log to index.js file ([d71b971](https://github.com/thejaswitricon/semver/commit/d71b971efc4c18b5d382435bdc99825110e79cb8))
+
+
+
+
+
+
 # [1.1.0](https://github.com/thejaswitricon/semver/compare/aws/ecs/ecs-simple-v1.0.0...aws/ecs/ecs-simple-v1.1.0) (2023-07-24)
 
 

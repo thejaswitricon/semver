@@ -25,13 +25,18 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.PAT_GITHUB2 }}
 
-      - name: Print Changed File Name
-        id: print-changes
-        run: echo "::set-output name=files::$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})"
+      - name: Get Changed Files
+        id: get-changed-files
+        run: |
+          PR_NUMBER=$(echo "${GITHUB_REF}" | awk 'BEGIN {FS="/"} {print $NF}')
+          CHANGED_FILES=$(curl -s -H "Authorization: token ${{ secrets.PAT_GITHUB2 }}" \
+            "https://api.github.com/repos/semver/pulls/24/files" \
+            | jq -r '.[].filename')
+          echo "::set-output name=files::${CHANGED_FILES}"
 
       - name: Show Changed Files
         run: |
-          echo "Changed files: ${{ steps.print-changes.outputs.files }}"
+          echo "Changed files: ${{ steps.get-changed-files.outputs.files }}"
 
       # Step 2: Check if the changed folder should be considered
       - name: Check folder with semver.yml

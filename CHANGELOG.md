@@ -1,4 +1,16 @@
-# CHANGELOG
+
+## [1.0.2](https://github.com/thejaswitricon/semver/compare/aws/eks/eks-simple-v1.0.1...aws/eks/eks-simple-v1.0.2) (2023-07-25)
+
+
+### Bug Fixes
+
+* **eks-simple:** url update for api call ([0fc58c7](https://github.com/thejaswitricon/semver/commit/0fc58c7dd6592f13267998bc10ec8ecdca578a0a))
+* **eks-simple:** url update for api call ([a2ce0d6](https://github.com/thejaswitricon/semver/commit/a2ce0d67b9c297eef5f01a0ddd42ac9ce0f7bdc3))
+
+
+
+
+
 
 ## [1.1.2](https://github.com/thejaswitricon/semver/compare/v1.1.1...v1.1.2) (2023-07-24)
 
@@ -14,6 +26,11 @@
 * **eks-simple:** url update for api call ([f17da2b](https://github.com/thejaswitricon/semver/commit/f17da2b91e8b3608787cd5522810699b692da13c))
 * **eks-simple:** url update for api call ([72416a1](https://github.com/thejaswitricon/semver/commit/72416a1c169bf680d8c1f2c03cc9ac94394683c2))
 * **eks-simple:** url update for api call ([56f6ccb](https://github.com/thejaswitricon/semver/commit/56f6ccb5b999afd64e06dab17aee327af79fcaed))
+
+
+
+
+
 
 ## [1.1.1](https://github.com/thejaswitricon/semver/compare/v1.1.0...v1.1.1) (2023-07-24)
 

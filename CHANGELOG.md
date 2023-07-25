@@ -20,6 +20,19 @@
 
 
 
+## [1.0.1](https://github.com/thejaswitricon/semver/compare/v1.0.0-aws/ecs/ecs-simple...v1.0.1-aws/ecs/ecs-simple) (2023-07-25)
+
+
+### Bug Fixes
+
+* **ecs-simple:** url update for api call ([ea7c40e](https://github.com/thejaswitricon/semver/commit/ea7c40ec02b488fc071ce95b1ec4011da12a38e4))
+* **ecs-simple:** url update for api call ([e3ceca5](https://github.com/thejaswitricon/semver/commit/e3ceca52bebffdd45a1a3ca806b330562d120ed4))
+
+
+
+
+
+
 # 1.0.0 (2023-07-25)
 
 

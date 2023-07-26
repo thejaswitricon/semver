@@ -1,3 +1,20 @@
+# CHANGELOG
+
+## [1.1.4](https://github.com/thejaswitricon/semver/compare/v1.1.3...v1.1.4) (2023-07-26)
+
+
+### Bug Fixes
+
+* **ecs-simple:** url update for api call ([cddd064](https://github.com/thejaswitricon/semver/commit/cddd0645b4771eb6c41450907f9b732db5a3d1c1))
+* **ecs-simple:** url update for api call ([334ef53](https://github.com/thejaswitricon/semver/commit/334ef53a5f2b644209cc49735c76abf2d607bdd4))
+* **ecs-simple:** url update for api call ([ea7c40e](https://github.com/thejaswitricon/semver/commit/ea7c40ec02b488fc071ce95b1ec4011da12a38e4))
+* **ecs-simple:** url update for api call ([e3ceca5](https://github.com/thejaswitricon/semver/commit/e3ceca52bebffdd45a1a3ca806b330562d120ed4))
+* **ecs-simple:** url update for api call ([d5ea3fc](https://github.com/thejaswitricon/semver/commit/d5ea3fc5a5f309d21d7714f0ef04b5b7abbfdc06))
+* **ecs-simple:** url update for api call ([01fc708](https://github.com/thejaswitricon/semver/commit/01fc7081eb6a49dcf40a91f5b98c29249eedf05f))
+* **ecs-simple:** url update for api call ([0e17ac0](https://github.com/thejaswitricon/semver/commit/0e17ac0e4ad32099c456bbf866d5534e8d0b5317))
+* **ecs-simple:** url update for api call ([f8fdf1b](https://github.com/thejaswitricon/semver/commit/f8fdf1beb00c82357c9a821534959f6e0f423a24))
+* README.md ([628ecef](https://github.com/thejaswitricon/semver/commit/628ecef6fa0ed08c2254bfcdf25c0b455cde7548))
+* README.md ([58c10ff](https://github.com/thejaswitricon/semver/commit/58c10ff8c95b4589b56c5534263cac6d8641958f))
 
 ## [1.1.9](https://github.com/thejaswitricon/semver/compare/aws/ecs/ecs-simple-v1.1.8...aws/ecs/ecs-simple-v1.1.9) (2023-07-26)
 

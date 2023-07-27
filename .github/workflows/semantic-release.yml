@@ -132,6 +132,34 @@ jobs:
             ]
         if: steps.changelog_path.outputs.path != ''
 
+      - name: Generate Custom Release Notes
+        id: custom_release_notes
+        run: |
+          # Get the commits introduced by the pull request that triggered the workflow
+          PR_COMMITS=$(git log --pretty=format:"- %s" ${{ github.event.before }}..${{ github.sha }})
+      
+          # Save the pull request commits to a file
+          echo "$PR_COMMITS" > custom_release_notes.txt
+      
+          - name: Update CHANGELOG.md with Custom Release Notes
+          id: update_changelog_with_custom_notes
+          run: |
+            # Use the output from the previous step to get the custom release notes
+            custom_release_notes=$(cat custom_release_notes.txt)
+  
+            # Get the path to the CHANGELOG.md file
+            changelog_path="${{ steps.changelog_path.outputs.path }}"
+  
+            # Append the custom release notes to the CHANGELOG.md file
+            echo "$custom_release_notes" >> "$changelog_path"
+  
+            # Commit and push the updated CHANGELOG.md file
+            git config user.name "GitHub Actions"
+            git config user.email "actions@github.com"
+            git pull
+            git add "$changelog_path"
+            git commit -m "docs: update CHANGELOG.md with custom release notes [skip ci]"
+            git push
 
   fetch-and-commit:
     name: Fetch and Commit Changes
